@@ -1,0 +1,8 @@
+pygments: true
+exclude:
+  - README.md
+
+author      : Zach Williams, @zachwill
+analytics   : UA-XXXXX-X
+description : "A blank site description."
+title       : A Site
