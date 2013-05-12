@@ -76,6 +76,10 @@ def scrape_tournament(endpoint):
     html = lh.fromstring(text)
     content = html.cssselect("#content")
     content = lh.tostring(content[0])
+    # Create the tournaments directory, if necessary
+    disk_path = "html/tournaments"
+    if not os.path.exists(disk_path):
+        os.makedirs(disk_path)
     # Save it to disk
     file_name = "html/tournaments/{0}.html".format(tournament)
     with open(file_name, "w") as f:

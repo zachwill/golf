@@ -28,6 +28,11 @@ def scrape_stats(year):
             endpoint = url + href
             print "\t {0}".format(endpoint)
             data = req.get(endpoint, headers=headers).text
+            # Check the path is already on disk
+            disk_path = "data/{0}".format(year)
+            if not os.path.exists(disk_path):
+                os.makedirs(disk_path)
+            # Save the JSON data to disk
             file_name = "data/{0}/{1}".format(year, href)
             with open(file_name, "w") as f:
                 f.write(data)
