@@ -64,8 +64,8 @@ def tournament_links(html):
         scrape_tournament(href)
 
 
-
 def scrape_tournament(endpoint):
+    """Scrape a tournament's HTML content."""
     # Find the tournament ID
     match = re.search(r'\d+', endpoint)
     tournament = match.group(0)
@@ -83,7 +83,11 @@ def scrape_tournament(endpoint):
         f.write(content)
 
 
-if __name__ == '__main__':
+def main():
     #for year in range(2001, 2013):
         #season(year)
     find_tournaments()
+
+
+if __name__ == '__main__':
+    main()
