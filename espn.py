@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Scrape each season of the PGA.
+Scrape each season of the PGA from ESPN.
 """
 
 import os
@@ -81,6 +81,35 @@ def scrape_tournament(endpoint):
     with open(file_name, "w") as f:
         print "\t Saved."
         f.write(content)
+
+
+def saved_tournaments():
+    """Return the saved tournaments HTML files."""
+    html_files = []
+    for file_name in os.listdir('html/tournaments'):
+        file_name = "html/tournaments/{0}".format(file_name)
+        if not os.path.isfile(file_name):
+            continue
+        html_files.append(file_name)
+    return html_files
+
+
+def find_players(tournament):
+    """
+    Parse the players from saved tournament HTML files. Then, scrape their
+    strokes for the given tournament.
+    """
+    pass
+
+
+def scrape_strokes(player, tournament):
+    """Find a player's HTML strokes by round for a given tournament."""
+    url = ("http://espn.go.com/golf/leaderboard11/controllers/ajax/playerDropdown?"
+           "xhr=1&playerId={0}&tournamentId={1}").format(player, tournament)
+    html = req.get(url, headers=headers).text
+    file_name = "html/strokes/{0}/{1}.html".format(tournament, player)
+    with open(file_name, "w") as f:
+        f.write(html)
 
 
 def main():
