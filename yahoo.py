@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-Scrape each season of the PGA.
+Scrape historical seasons of the PGA that are only available on Yahoo -- and,
+sadly, only have the player's total for a given round.
 """
 
 import os
@@ -18,7 +19,7 @@ headers = {
 
 
 def season(year):
-    """Grab a Yahoo golf season's html."""
+    """Grab a Yahoo golf season's HTML schedule."""
     print year
     url = "http://sports.yahoo.com/golf/pga/schedule?season={0}".format(year)
     text = req.get(url, headers=headers).text
