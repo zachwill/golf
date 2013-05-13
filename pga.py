@@ -127,8 +127,7 @@ def scrape_player(player):
 
 def main():
     for player in find_players():
-        if int(player) >= 1842:
-            scrape_player(player)
+        scrape_player(player)
 
 
 if __name__ == '__main__':

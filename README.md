@@ -1,7 +1,7 @@
 golf
 ====
 
-Small scripts to scrape golf data from ESPN and Yahoo.
+Small scripts to scrape golf data from the PGA tour, ESPN, and Yahoo.
 
 
 Setup
@@ -12,7 +12,6 @@ directory structure:
 
     mkdir {data,html,ysports}
 
-
-A number of Python packages are also required:
+Also, A number of Python packages are required:
 
     pip install -r requirements.txt
