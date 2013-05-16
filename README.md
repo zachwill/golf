@@ -12,6 +12,6 @@ directory structure:
 
     mkdir {data,html,ysports}
 
-Also, A number of Python packages are required:
+Also, a number of Python packages are required:
 
     pip install -r requirements.txt
