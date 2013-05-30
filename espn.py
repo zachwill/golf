@@ -98,28 +98,46 @@ def saved_tournaments():
     return html_files
 
 
-def find_players(tournament):
+def find_players(tournament=None):
     """
     Parse the players from saved tournament HTML files. Then, scrape their
     strokes for the given tournament.
     """
-    pass
+    if not tournament:
+        html_files = saved_tournaments()
+    else:
+        html_files = ["html/tournaments/{0}.html".format(tournament)]
+    for file_name in html_files:
+        with open(file_name) as f:
+            html = lh.fromstring(f.read())
+        match = re.search(r'(\d+)', file_name)
+        tournament = match.group(0)
+        players = html.cssselect('.player a')
+        for player in players:
+            player_id = player.attrib['name']
+            scrape_strokes(player_id, tournament)
 
 
 def scrape_strokes(player, tournament):
     """Find a player's HTML strokes by round for a given tournament."""
-    url = ("http://espn.go.com/golf/leaderboard11/controllers/ajax/playerDropdown?"
-           "xhr=1&playerId={0}&tournamentId={1}").format(player, tournament)
-    html = req.get(url, headers=headers).text
-    file_name = "html/strokes/{0}/{1}.html".format(tournament, player)
-    with open(file_name, "w") as f:
-        f.write(html)
+    disk_path = "html/strokes/{0}".format(tournament)
+    file_name = disk_path + "/{0}.html".format(player)
+    if not os.path.exists(disk_path):
+        os.makedirs(disk_path)
+    if not os.path.isfile(file_name):
+        print tournament, player
+        url = ("http://espn.go.com/golf/leaderboard11/controllers/ajax/playerDropdown?"
+               "xhr=1&playerId={0}&tournamentId={1}").format(player, tournament)
+        html = req.get(url, headers=headers).text
+        with open(file_name, "w") as f:
+            f.write(html)
 
 
 def main():
     #for year in range(2001, 2013):
         #season(year)
-    find_tournaments()
+    #find_tournaments()
+    find_players()
 
 
 if __name__ == '__main__':
